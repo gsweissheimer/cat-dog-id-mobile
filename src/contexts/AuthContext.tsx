@@ -16,12 +16,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signIn(email: string, pass: string) {
     const { token } = await postLogin(email, pass);
-    if (token != null ) {
+    if (!token) {
+      return false;
+    } else {
       await AsyncStorage.setItem('userToken', token);
       setUserToken(token);
       return true;
-    } else {
-      return false;
     }
   }
 
