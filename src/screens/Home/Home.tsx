@@ -14,6 +14,10 @@ export default function HomeScreen({ navigation }: Props) {
       navigation.replace('Profile');
   }
 
+  function navigateToPet() {
+      navigation.replace('Pet');
+  }
+
   return (
     <View style={styles.container}>
       <Header title="Home"> 
@@ -23,6 +27,9 @@ export default function HomeScreen({ navigation }: Props) {
       </Header>
       <View style={styles.content}>
         <Text style={styles.welcome}>Home!</Text>
+        <Pressable style={styles.primaryButton} onPress={navigateToPet}>
+          <Text style={styles.primaryButtonText}>Pet</Text>
+        </Pressable>
       </View>
     </View>
   );
