@@ -12,16 +12,15 @@ export default function LoginScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleLogin() {
+  async function handleLogin() {
     if (!email || !password) {
       alert('Por favor, preencha todos os campos.');
       return;
-    } else if (email == 'gui@gui.com') {
-        if(password == 'gui') {
-          signIn(); 
-        }
-    } else {
-      alert('Dados errados. Tente novamente.');
+    }
+    const logged = await signIn(email, password);
+    if (!logged) {
+      alert('Login ou senha inválidos');
+      return;
     }
   }
 

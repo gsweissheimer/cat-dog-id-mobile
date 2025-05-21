@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './Header.styles';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useAuth } from '../../contexts/AuthContext';
 
 type HeaderProps = {
   title: string;
@@ -19,13 +19,17 @@ export default function Header({ title, children, showBack = false }: HeaderProp
     
   const navigation = useNavigation<NavigationProp>();
 
+    const { signOut } = useAuth(); 
+
   return (
     <View style={styles.container}>
       {showBack ? (
         <Pressable onPress={() => navigation.replace('Home')} style={styles.backButton}>
           <Text style={styles.backText}>‹ Voltar</Text>
         </Pressable>
-      ) : <View style={styles.backPlaceholder} />}
+      ) : <Pressable onPress={signOut} style={styles.backButton}>
+            <Text style={styles.backText}>Logout</Text>
+          </Pressable>}
       <Text style={styles.title}>{title}</Text>
       <View style={styles.rightPlaceholder}>
         {children}
