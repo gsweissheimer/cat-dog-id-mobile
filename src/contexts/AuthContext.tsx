@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { postLogin } from '../services/api';
 
@@ -7,12 +7,20 @@ type AuthContextData = {
   setUserToken: React.Dispatch<React.SetStateAction<string | null>>;
   signIn(email: string, pass: string): Promise<boolean>;
   signOut(): void;
+  getUserIdFromToken(): string;
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [userToken, setUserToken] = useState<string | null>(null);
+
+  const getUserIdFromToken = useCallback(() => {
+      if (!userToken) return '';
+      const payloadBase64 = userToken.split(".")[1];
+      const payloadDecoded = JSON.parse(atob(payloadBase64));
+      return payloadDecoded.id;
+  }, []);
 
   async function signIn(email: string, pass: string) {
     const { token } = await postLogin(email, pass);
@@ -30,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ userToken, setUserToken, signIn, signOut }}>
+    <AuthContext.Provider value={{ userToken, setUserToken, signIn, signOut, getUserIdFromToken }}>
       {children}
     </AuthContext.Provider>
   );

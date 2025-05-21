@@ -9,7 +9,7 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <Header title="Profile" showBack={true} />
       <View style={styles.content}>
-        <Text style={styles.welcome}>Home!</Text>
+        <Text style={styles.welcome}>Profile!</Text>
       </View>
     </View>
   );
