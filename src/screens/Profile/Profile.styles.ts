@@ -11,11 +11,17 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
   button: {
-    padding: 8,
+    height: 48,
+    borderRadius: 6,
+    backgroundColor: '#3478f6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
   },
   buttonText: {
+    color: '#fff',
     fontSize: 16,
-    color: '#3478f6',
+    fontWeight: '500',
   },
   content: {
     height: '100%',

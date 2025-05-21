@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAuth } from '../../contexts/AuthContext';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import type { RootStackParamList } from '../../navigation/AppNavigator';
 import styles from './Login.styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -19,7 +19,6 @@ export default function LoginScreen({ navigation }: Props) {
     } else if (email == 'gui@gui.com') {
         if(password == 'gui') {
           signIn(); 
-          navigation.replace('Home');
         }
     } else {
       alert('Dados errados. Tente novamente.');
