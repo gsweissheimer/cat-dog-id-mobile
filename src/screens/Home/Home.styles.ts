@@ -47,4 +47,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  footer: {
+    height: 100,
+  },
 });
