@@ -9,6 +9,8 @@ export const styles = StyleSheet.create({
   welcome: {
     fontSize: 24,
     fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 32,
   },
   button: {
     padding: 8,
@@ -23,7 +25,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   primaryButton: {
-    height: 48,
+    padding: 16,
     borderRadius: 6,
     backgroundColor: '#3478f6',
     justifyContent: 'center',

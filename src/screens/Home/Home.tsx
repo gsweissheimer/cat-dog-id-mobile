@@ -1,8 +1,9 @@
-import React, { use, useEffect, useState } from 'react';
+import React, {  useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { styles } from './Home.styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Header from '../../components/Header/Header';
+import PetActions from '../../components/PetActions/PetActions';
 import { useUser } from '../../contexts/UserContext';
 
 type Props = {
@@ -14,7 +15,7 @@ export default function HomeScreen({ navigation }: Props) {
   const { userFull, getUserFull: getUserFull, userPets } = useUser()
 
   useEffect(() => {
-    if (!userFull) {
+    if (userFull == null) {
       getUserFull();
     }
   }, [userFull]);
@@ -35,11 +36,12 @@ export default function HomeScreen({ navigation }: Props) {
         </Pressable>
       </Header>
       <View style={styles.content}>
-        <Text style={styles.welcome}>Home!</Text>
+        <PetActions />
+        <Text style={styles.welcome}>Olá, {userFull?.name}</Text>
           {userPets && (
             userPets.length > 0 ? (
-              userPets.map((pet) => (
-                <Pressable style={styles.primaryButton} onPress={navigateToPet}>
+              userPets.map((pet, index) => (
+                <Pressable key={index} style={styles.primaryButton} onPress={navigateToPet}>
                   <Text style={styles.primaryButtonText}>{pet.name}</Text>
                 </Pressable>
               ))
