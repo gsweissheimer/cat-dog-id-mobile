@@ -6,7 +6,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  welcome: {
+  petNameSkeleton: {
+    backgroundColor: '#e0e0e0',
+    color: '#e0e0e0',
+    fontSize: 24,
+    fontWeight: '600',
+    width: '100%',
+    minWidth: 200,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+  },
+  petName: {
     fontSize: 24,
     fontWeight: '600',
   },

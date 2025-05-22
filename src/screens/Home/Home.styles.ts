@@ -6,7 +6,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  welcome: {
+  mainTitleSkeleton: {
+    backgroundColor: '#e0e0e0',
+    color: '#e0e0e0',
+    fontSize: 24,
+    fontWeight: '600',
+    width: '100%',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    textAlign: 'center',
+  },
+  mainTitle: {
     fontSize: 24,
     fontWeight: '600',
     textAlign: 'center',

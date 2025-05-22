@@ -17,8 +17,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const getUserIdFromToken = useCallback(() => {
       if (!userToken) return '';
-      console.log(userToken);
-      
       const payloadBase64 = userToken.split(".")[1];
       const payloadDecoded = JSON.parse(atob(payloadBase64));
       return payloadDecoded.id;

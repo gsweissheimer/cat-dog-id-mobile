@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AnswerDTO, UserFull } from "../types";
+import { AnswerDTO, UserFull, Pet } from "../types";
 
 const API_BASE = 'https://nodejs-nlw-production.up.railway.app'
 
@@ -20,6 +20,21 @@ export async function postLogin(email: string, password: string) {
 export async function getUserFullFromUserId(id: string) : Promise<AnswerDTO<UserFull>> {
     const token = await AsyncStorage.getItem('userToken');
     const response = await fetch(`${API_BASE}/miau/user/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token ?? '',
+        },
+    });
+    if (response.ok) {
+        return response.json();
+    }
+    return response.ok;
+}
+
+export async function getPetFromId(id: string) : Promise<AnswerDTO<Pet>> {
+    const token = await AsyncStorage.getItem('userToken');
+    const response = await fetch(`${API_BASE}/miau/pet/${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

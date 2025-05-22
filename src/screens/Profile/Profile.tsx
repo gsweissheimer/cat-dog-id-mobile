@@ -11,10 +11,10 @@ type Props = {
 
 export default function ProfileScreen({ navigation }: Props) {
 
-  const { userFull, userPets } = useUser()
+  const { userFull, userPets } = useUser();
 
-  function navigateToPet() {
-      navigation.replace('Pet');
+  function navigateToPet(id: string) {
+      navigation.replace('Pet', { id });
   }
 
   return (
@@ -27,7 +27,7 @@ export default function ProfileScreen({ navigation }: Props) {
         {userPets && (
           userPets.length > 0 ? (
             userPets.map((pet, index) => (
-              <Pressable key={index} style={styles.primaryButton} onPress={navigateToPet}>
+              <Pressable key={index} style={styles.primaryButton} onPress={() => navigateToPet(pet.id!)}>
                 <Text style={styles.primaryButtonText}>{pet.name}</Text>
               </Pressable>
             ))

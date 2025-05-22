@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { styles } from './Home.styles';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -13,11 +13,17 @@ type Props = {
 
 export default function HomeScreen({ navigation }: Props) {
 
+  const [ isLoading, setIsLoading ] = useState<boolean>(true);
+
   const { userFull, getUserFull: getUserFull, userPets } = useUser()
 
   useEffect(() => {
     if (userFull == null) {
-      getUserFull();
+      getUserFull().then((result) => {
+        setIsLoading(false);
+      });
+    } else {
+      setIsLoading(false);
     }
   }, [userFull]);
 
@@ -38,7 +44,7 @@ export default function HomeScreen({ navigation }: Props) {
       </Header>
       <View style={styles.content}>
         <PetActions />
-        <Text style={styles.welcome}>Olá, {userFull?.name}</Text>
+        <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>Olá, {userFull?.name}</Text>
           {userPets && (
             userPets.length > 0 ? (
               userPets.map((pet, index) => (
@@ -47,7 +53,7 @@ export default function HomeScreen({ navigation }: Props) {
                 </Pressable>
               ))
             ) : (
-              <Text style={styles.welcome}>You have no pets!</Text>
+              <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>You have no pets!</Text>
             )
           )}
       </View>
