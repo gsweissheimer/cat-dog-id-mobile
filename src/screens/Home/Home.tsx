@@ -5,9 +5,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Header from '../../components/Header/Header';
 import PetActions from '../../components/PetActions/PetActions';
 import { useUser } from '../../contexts/UserContext';
+import { RootStackParamList } from '../../navigation/AppNavigator';
 
 type Props = {
-  navigation: StackNavigationProp<any, any>;
+  navigation: StackNavigationProp<RootStackParamList, 'Pet'>;
 };
 
 export default function HomeScreen({ navigation }: Props) {
@@ -24,8 +25,8 @@ export default function HomeScreen({ navigation }: Props) {
       navigation.replace('Profile');
   }
 
-  function navigateToPet() {
-      navigation.replace('Pet');
+  function navigateToPet(id: string) {
+      navigation.replace('Pet', { id });
   }
   
   return (
@@ -41,7 +42,7 @@ export default function HomeScreen({ navigation }: Props) {
           {userPets && (
             userPets.length > 0 ? (
               userPets.map((pet, index) => (
-                <Pressable key={index} style={styles.primaryButton} onPress={navigateToPet}>
+                <Pressable key={index} style={styles.primaryButton} onPress={() => navigateToPet(pet.id!)}>
                   <Text style={styles.primaryButtonText}>{pet.name}</Text>
                 </Pressable>
               ))

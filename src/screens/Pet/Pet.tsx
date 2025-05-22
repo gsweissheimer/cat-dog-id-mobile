@@ -3,26 +3,20 @@ import { View, Text, Pressable } from 'react-native';
 import { styles } from './Pet.styles';
 import Header from '../../components/Header/Header';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/AppNavigator';
 
-type Props = {
-  navigation: StackNavigationProp<any, any>;
-};
+type PetRouteProp = RouteProp<RootStackParamList, 'Pet'>;
 
-export default function PetScreen({ navigation }: Props) {
+export default function PetScreen({ route }: { route: PetRouteProp }) {
 
-  function navigateToProfile() {
-      navigation.replace('Profile');
-  }
+  const { id } = route.params;
 
   return (
     <View style={styles.container}>
-      <Header title="Pet" showBack={true}>
-        <Pressable style={styles.button} onPress={navigateToProfile}>
-          <Text style={styles.buttonText}>Profile</Text>
-        </Pressable>
-      </Header>
+      <Header title="Pet" showBack={true} />
       <View style={styles.content}>
-        <Text style={styles.welcome}>Pet!</Text>
+        <Text style={styles.welcome}>Pet! {id}</Text>
       </View>
     </View>
   );
