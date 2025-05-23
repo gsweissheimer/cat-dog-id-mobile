@@ -5,6 +5,9 @@ import Header from '../../components/Header/Header';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { usePet } from '../../contexts/PetContext';
+import WeeklyCalendar from '../../components/WeeklyCalendar/MonthlyCalendar';
+import { Event } from '../../types/';
+import PetActions from '../../components/PetActions/PetActions';
 
 type PetRouteProp = RouteProp<RootStackParamList, 'Pet'>;
 
@@ -15,6 +18,11 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
   const { id } = route.params;
 
   const { pet, getPetById } = usePet();
+  
+  const myEvents: Event[] = [
+    { id: '1', name: 'Consulta', eventDate: '2025-05-20' },
+    { id: '2', name: 'Vacina',   eventDate: '2025-05-22' },
+  ];
 
   useEffect(() => {
     if (pet == null || pet.id !== id) {
@@ -29,7 +37,11 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
       <Header title="Pet" showBack={true} />
       <View style={styles.content}>
         { pet && (
-          <Text style={ isLoading ? styles.petNameSkeleton : styles.petName}>{pet.name}</Text>
+          <>
+            <PetActions />
+            <Text style={ isLoading ? styles.petNameSkeleton : styles.petName}>{pet.name}</Text>
+            <WeeklyCalendar events={myEvents} />
+          </>
         )}
       </View>
     </View>

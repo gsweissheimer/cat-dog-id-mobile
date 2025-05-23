@@ -97,6 +97,7 @@ export default function MonthlyCalendar({ events }: MonthlyCalendarProps) {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.mainTitle}>Eventos</Text>
 
             <View style={styles.nav}>
                 <Pressable onPress={handlePrevMonth} style={styles.navButton}>

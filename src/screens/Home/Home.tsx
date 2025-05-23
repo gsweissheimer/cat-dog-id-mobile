@@ -56,6 +56,8 @@ export default function HomeScreen({ navigation }: Props) {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
+          <WeeklyCalendar events={myEvents} />
+          <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>Meus Pets</Text>
           {userPets && (
             userPets.length > 0 ? (
               userPets.map((pet, index) => (
@@ -67,7 +69,6 @@ export default function HomeScreen({ navigation }: Props) {
               <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>You have no pets!</Text>
             )
           )}
-          <WeeklyCalendar events={myEvents} />
           <View style={styles.footer}>
 
           </View>

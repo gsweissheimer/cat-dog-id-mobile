@@ -18,7 +18,7 @@ export function PetProvider({ children }: { children: ReactNode }) {
         if (typeof result === 'boolean') {
             return false;
         }
-        setPet(result.data[0]); // TO DO: remove "[0]" when API is fixed
+        setPet(result.data);
         return true;
     }
 

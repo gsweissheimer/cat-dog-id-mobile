@@ -14,11 +14,13 @@ export const styles = StyleSheet.create({
     width: '100%',
     minWidth: 200,
     borderRadius: 8,
+    textAlign: 'center',
     paddingHorizontal: 16,
   },
   petName: {
     fontSize: 24,
     fontWeight: '600',
+    textAlign: 'center',
   },
   button: {
     padding: 8,

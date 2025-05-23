@@ -32,6 +32,12 @@ export const styles = StyleSheet.create({
     paddingVertical: 6,
     alignItems: 'center',
   },
+  mainTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 32,
+  },
   dayNameText: {
     fontSize: 12,
     fontWeight: '500',

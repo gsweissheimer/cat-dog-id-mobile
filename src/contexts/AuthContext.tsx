@@ -17,11 +17,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const getUserIdFromToken = useCallback(() => {
       if (!userToken) return '';
-      
       const payloadBase64 = userToken.split(".")[1];
       const payloadDecoded = JSON.parse(atob(payloadBase64));
       return payloadDecoded.id;
-  }, []);
+  }, [userToken]);
 
   async function signIn(email: string, pass: string) {
     const { token } = await postLogin(email, pass);
