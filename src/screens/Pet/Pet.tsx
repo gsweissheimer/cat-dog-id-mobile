@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { styles } from './Pet.styles';
 import Header from '../../components/Header/Header';
 import { RouteProp } from '@react-navigation/native';
@@ -29,18 +29,34 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
       getPetById(id).then(() => {
           setIsLoading(false);
       });
+    } else {
+      setIsLoading(false);
     }
   }, [pet, id]);
 
   return (
     <View style={styles.container}>
-      <Header title="Pet" showBack={true} />
+      <Header title='Pet' showBack={true} />
       <View style={styles.content}>
         { pet && (
           <>
             <PetActions />
-            <Text style={ isLoading ? styles.petNameSkeleton : styles.petName}>{pet.name}</Text>
-            <WeeklyCalendar events={myEvents} />
+            <ScrollView
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}>
+            <Image
+              source={require('../../img/gato.png')} style={{ width: 340, height: 340 }} />
+                  <View style={styles.infoContainer}>
+                    <Text style={ isLoading ? styles.petNameSkeleton : styles.petName}>{pet.name}</Text>
+                    <WeeklyCalendar events={myEvents} />
+                  </View>
+                  <View style={styles.footer}>
+        
+                  </View>
+            </ScrollView>
+            <View style={styles.footer}>
+  
+            </View>
           </>
         )}
       </View>
