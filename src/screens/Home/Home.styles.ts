@@ -16,11 +16,29 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     textAlign: 'center',
   },
+  infoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#fff',
+    elevation: 4,           
+    shadowColor: '#000',    
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    paddingTop: 32,
+    borderTopRightRadius: 32,
+    borderTopLeftRadius: 32,
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   mainTitle: {
     fontSize: 24,
     fontWeight: '600',
     textAlign: 'center',
     marginBottom: 32,
+    width: '100%',
   },
   button: {
     padding: 8,
@@ -32,7 +50,6 @@ export const styles = StyleSheet.create({
   content: {
     height: '100%',
     paddingVertical: 32,
-    paddingHorizontal: 16,
   },
   primaryButton: {
     padding: 16,
@@ -41,6 +58,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 8,
+    marginRight: 8,
   },
   primaryButtonText: {
     color: '#fff',

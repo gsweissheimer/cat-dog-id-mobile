@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 8,
+    marginLeft: 8,
   },
   primaryButtonText: {
     color: '#fff',

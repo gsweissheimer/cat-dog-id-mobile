@@ -56,23 +56,28 @@ export default function HomeScreen({ navigation }: Props) {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
-          <WeeklyCalendar events={myEvents} />
-          <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>Meus Pets</Text>
-          {userPets && (
-            userPets.length > 0 ? (
-              userPets.map((pet, index) => (
-                <Pressable key={index} style={styles.primaryButton} onPress={() => navigateToPet(pet.id!)}>
-                  <Text style={styles.primaryButtonText}>{pet.name}</Text>
-                </Pressable>
-              ))
-            ) : (
-              <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>You have no pets!</Text>
-            )
-          )}
-          <View style={styles.footer}>
+          <View style={styles.infoContainer}>
+            <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>Meus Pets</Text>
+              {userPets && (
+                userPets.length > 0 ? (
+                  userPets.map((pet, index) => (
+                    <Pressable key={index} style={styles.primaryButton} onPress={() => navigateToPet(pet.id!)}>
+                      <Text style={styles.primaryButtonText}>{pet.name}</Text>
+                    </Pressable>
+                  ))
+                ) : (
+                  <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>You have no pets!</Text>
+                )
+              )}
+            <WeeklyCalendar events={myEvents} />
+            <View style={styles.footer}>
 
+            </View>
           </View>
         </ScrollView>
+        <View style={styles.footer}>
+
+        </View>
 
       </View>
     </View>
