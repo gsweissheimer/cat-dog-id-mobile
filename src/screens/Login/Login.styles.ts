@@ -35,4 +35,8 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  center: { flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 });

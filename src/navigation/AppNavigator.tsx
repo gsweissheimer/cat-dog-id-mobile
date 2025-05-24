@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { useAuth } from '../contexts/AuthContext';
-import AuthStack from './AuthStack';
-import AppStack  from './AppStack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import {
+  NavigationContainer
+} from '@react-navigation/native';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { useAuth }   from '../contexts/AuthContext';
+import AuthStack     from './AuthStack';
+import AppStack      from './AppStack';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -13,20 +15,24 @@ export type RootStackParamList = {
 };
 
 export default function AppNavigator() {
-  const { userToken, setUserToken } = useAuth();
-  
-  useEffect(() => {
-    async function loadToken() {
-      const token = await AsyncStorage.getItem('userToken');
-      if (token) setUserToken(token);
-    }
-    loadToken();
-  }, []);
+  const { userToken, loading } = useAuth();
+  // Enquanto o contexto carrega o token, mostra loading
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
-
+  // Depois de carregar, decide qual fluxo renderizar
   return (
     <NavigationContainer>
       {userToken ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+});

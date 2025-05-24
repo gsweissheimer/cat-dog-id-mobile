@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 4 },
     paddingTop: 32,
+    paddingHorizontal: 16,
     borderTopRightRadius: 32,
     borderTopLeftRadius: 32,
     display: 'flex',
@@ -35,6 +36,7 @@ export const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 24,
+    paddingHorizontal: 16,
     fontWeight: '600',
     textAlign: 'center',
     marginBottom: 32,

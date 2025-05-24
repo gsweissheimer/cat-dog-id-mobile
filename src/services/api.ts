@@ -1,7 +1,23 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AnswerDTO, UserFull, Pet } from "../types";
+import { AnswerDTO, UserFull, Pet, Event } from "../types";
 
 const API_BASE = 'https://nodejs-nlw-production.up.railway.app'
+
+export async function CreateEventService(event: Event) : Promise<AnswerDTO<boolean>> {
+    const token = await AsyncStorage.getItem('userToken');
+    const response = await fetch(`${API_BASE}/miau/event/add`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token ?? '',
+        },
+        body: JSON.stringify(event),
+    });
+    if (response.ok) {
+        return response.json();
+    }
+    return response.ok;
+}
 
 export async function postLogin(email: string, password: string) {
     const response = await fetch(`${API_BASE}/au/login`, {
