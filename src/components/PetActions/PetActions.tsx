@@ -6,10 +6,11 @@ import { useUser } from '../../contexts/UserContext';
 import { useEvent } from '../../contexts/EventContext';
 
 type PetActionsProps = {
-  title?: string;
+  entityType: string;
+  entityId?: string ;
 };
 
-export default function PetActions({ title }: PetActionsProps) {
+export default function PetActions({ entityType, entityId }: PetActionsProps) {
 
   const { userFull } = useUser();
 
@@ -20,8 +21,8 @@ export default function PetActions({ title }: PetActionsProps) {
       name: action.label,
       value: action.value,
       type: 'event',
-      entityId: userFull?.tutorId,
-      entityType: 'tutor',
+      entityId: entityId ?? userFull?.tutorId,
+      entityType: entityType,
       eventDate: new Date().toISOString(),
     };
     console.log('Evento:', event);

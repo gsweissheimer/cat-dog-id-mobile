@@ -50,7 +50,7 @@ export default function HomeScreen({ navigation }: Props) {
         </Pressable>
       </Header>
       <View style={styles.content}>
-        <PetActions />
+        <PetActions  entityType='tutor' />
         <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>Olá, {userFull?.name}</Text>
         <ScrollView
           showsHorizontalScrollIndicator={false}

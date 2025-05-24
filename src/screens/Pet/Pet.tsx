@@ -40,7 +40,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
       <View style={styles.content}>
         { pet && (
           <>
-            <PetActions />
+            <PetActions entityType='pet' />
             <ScrollView
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}>
