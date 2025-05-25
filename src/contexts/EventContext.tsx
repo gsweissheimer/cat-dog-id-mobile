@@ -20,6 +20,7 @@ export function EventProvider({ children }: { children: ReactNode }) {
         if (typeof result === 'boolean') {
             return false;
         }
+        setEvents((prevEvents) => [...prevEvents, event]);
         return result.data;
     }
 
@@ -29,7 +30,6 @@ export function EventProvider({ children }: { children: ReactNode }) {
         if (typeof result === 'boolean') {
             return false;
         }
-        console.log('GetEventByPetId result', result);
         setEvents(result.data);
         return true;
     }
