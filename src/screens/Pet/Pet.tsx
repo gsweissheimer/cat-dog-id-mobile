@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { usePet } from '../../contexts/PetContext';
-import WeeklyCalendar from '../../components/WeeklyCalendar/MonthlyCalendar';
+import WeeklyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
 import { Event } from '../../types/';
 import PetActions from '../../components/PetActions/PetActions';
 

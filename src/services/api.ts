@@ -62,3 +62,33 @@ export async function getPetFromId(id: string) : Promise<AnswerDTO<Pet>> {
     }
     return response.ok;
 }
+
+export async function getEventFromPetId(id: string) : Promise<AnswerDTO<Event[]>> {
+    const token = await AsyncStorage.getItem('userToken');
+    const response = await fetch(`${API_BASE}/miau/event/pet/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token ?? '',
+        },
+    });
+    if (response.ok) {
+        return response.json();
+    }
+    return response.ok;
+}
+
+export async function getEventFromTutorId(id: string) : Promise<AnswerDTO<Event[]>> {
+    const token = await AsyncStorage.getItem('userToken');
+    const response = await fetch(`${API_BASE}/miau/event/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token ?? '',
+        },
+    });
+    if (response.ok) {
+        return response.json();
+    }
+    return response.ok;
+}

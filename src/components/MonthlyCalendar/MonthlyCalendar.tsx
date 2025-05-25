@@ -95,6 +95,8 @@ export default function MonthlyCalendar({ events }: MonthlyCalendarProps) {
         year: 'numeric',
     });
 
+    console.log('Eventos:', events);
+
     return (
         <View style={styles.container}>
             <Text style={styles.mainTitle}>Eventos</Text>
