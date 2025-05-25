@@ -10,6 +10,7 @@ export interface EntityOption {
   };
 
 export const EventActions: EventAction[] = [
+    { label: 'Agressivo', value: 'vomitou', entity: "all" },
     { label: 'Vomito', value: 'vomitou', entity: "all" },
     { label: 'Não quis comer', value: 'nao-quis-comer', entity: "pet" },
     { label: 'Verbalizando Excessivamente', value: 'nao-quis-comer', entity: "pet" },
