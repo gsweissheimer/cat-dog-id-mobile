@@ -25,8 +25,6 @@ export default function PetActions({ entityType, entityId }: PetActionsProps) {
       entityType: entityType,
       eventDate: new Date().toISOString(),
     };
-    console.log('Evento:', event);
-
     CreateEvent(event).then((result) => {
       if (result) {
         alert('Evento criado com sucesso');

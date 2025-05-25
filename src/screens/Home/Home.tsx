@@ -9,7 +9,7 @@ import { RootStackParamList } from '../../navigation/AppNavigator';
 import MonthlyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
 import { Event } from '../../types/';
 import { useEvent } from '../../contexts/EventContext';
-import { getEventFromTutorId } from '../../services/api';
+import Modal from '../../components/Modal/Modal';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Pet'>;
@@ -18,11 +18,10 @@ type Props = {
 export default function HomeScreen({ navigation }: Props) {
 
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
+  const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
 
   const { userFull, getUserFull: getUserFull, userPets } = useUser();
   const { events, GetEventByTutorId } = useEvent()
-
-  const myEvents: Event[] = [];
 
   useEffect(() => {
     if (userFull == null) {
@@ -55,6 +54,9 @@ export default function HomeScreen({ navigation }: Props) {
           <Text style={styles.buttonText}>Profile</Text>
         </Pressable>
       </Header>
+      <Modal title="Modal Title" modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
+        <Text>This is the modal content!</Text>
+      </Modal>
       <View style={styles.content}>
         <PetActions  entityType='tutor' />
         <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>Olá, {userFull?.name}</Text>
@@ -82,7 +84,7 @@ export default function HomeScreen({ navigation }: Props) {
           </View>
         </ScrollView>
         <View style={styles.footer}>
-
+              
         </View>
 
       </View>

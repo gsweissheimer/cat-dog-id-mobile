@@ -25,7 +25,6 @@ export function EventProvider({ children }: { children: ReactNode }) {
     }
 
     async function GetEventByPetId(id: string): Promise<boolean> {
-        console.log('GetEventByPetId', id);    
         const result: AnswerDTO<Event[]> = await getEventFromPetId(id);
         if (typeof result === 'boolean') {
             return false;
