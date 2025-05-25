@@ -8,7 +8,6 @@ import { usePet } from '../../contexts/PetContext';
 import PetActions from '../../components/PetActions/PetActions';
 import MonthlyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
 import { useEvent } from '../../contexts/EventContext';
-import Modal from '../../components/Modal/Modal';
 import { Event } from '../../types';
 import EventsModal from '../../components/EventsModal/EventsModal';
 

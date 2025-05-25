@@ -1,15 +1,14 @@
 import React, {  useEffect, useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
-import { styles } from './Home.styles';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/AppNavigator';
+import { useUser } from '../../contexts/UserContext';
+import { useEvent } from '../../contexts/EventContext';
+import { Event } from '../../types/';
+import { styles } from './Home.styles';
 import Header from '../../components/Header/Header';
 import PetActions from '../../components/PetActions/PetActions';
-import { useUser } from '../../contexts/UserContext';
-import { RootStackParamList } from '../../navigation/AppNavigator';
 import MonthlyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
-import { Event } from '../../types/';
-import { useEvent } from '../../contexts/EventContext';
-import Modal from '../../components/Modal/Modal';
 import EventsModal from '../../components/EventsModal/EventsModal';
 
 type Props = {
