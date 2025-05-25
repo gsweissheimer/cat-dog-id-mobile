@@ -23,11 +23,13 @@ export function EventProvider({ children }: { children: ReactNode }) {
         return result.data;
     }
 
-    async function GetEventByPetId(id: string): Promise<boolean> {        
+    async function GetEventByPetId(id: string): Promise<boolean> {
+        console.log('GetEventByPetId', id);    
         const result: AnswerDTO<Event[]> = await getEventFromPetId(id);
         if (typeof result === 'boolean') {
             return false;
         }
+        console.log('GetEventByPetId result', result);
         setEvents(result.data);
         return true;
     }

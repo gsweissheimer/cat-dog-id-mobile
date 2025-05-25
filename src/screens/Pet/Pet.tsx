@@ -5,9 +5,9 @@ import Header from '../../components/Header/Header';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { usePet } from '../../contexts/PetContext';
-import WeeklyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
-import { Event } from '../../types/';
 import PetActions from '../../components/PetActions/PetActions';
+import MonthlyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
+import { useEvent } from '../../contexts/EventContext';
 
 type PetRouteProp = RouteProp<RootStackParamList, 'Pet'>;
 
@@ -18,11 +18,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
   const { id } = route.params;
 
   const { pet, getPetById } = usePet();
-  
-  const myEvents: Event[] = [
-    { id: '1', name: 'Consulta', eventDate: '2025-05-20' },
-    { id: '2', name: 'Vacina',   eventDate: '2025-05-22' },
-  ];
+  const { events, GetEventByPetId } = useEvent();
 
   useEffect(() => {
     if (pet == null || pet.id !== id) {
@@ -32,6 +28,10 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
     } else {
       setIsLoading(false);
     }
+  }, [pet, id]);
+
+  useEffect(() => {
+    GetEventByPetId(id);
   }, [pet, id]);
 
   return (
@@ -48,7 +48,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
               source={require('../../img/gato.png')} style={{ width: 340, height: 340 }} />
                   <View style={styles.infoContainer}>
                     <Text style={ isLoading ? styles.petNameSkeleton : styles.petName}>{pet.name}</Text>
-                    <WeeklyCalendar events={myEvents} />
+                    {events && <MonthlyCalendar events={events} />}
                   </View>
                   <View style={styles.footer}>
         
