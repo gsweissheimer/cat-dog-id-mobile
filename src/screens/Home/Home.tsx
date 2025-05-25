@@ -32,6 +32,7 @@ export default function HomeScreen({ navigation }: Props) {
         setIsLoading(false);
       });
     } else {
+      GetEventByTutorId(userFull?.tutorId!);
       setIsLoading(false);
     }
   }, [userFull]);
