@@ -19,6 +19,8 @@ export default function HomeScreen({ navigation }: Props) {
 
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+  const [ dayEvents, setDayEvents ] = useState<Event[] | null>(null);
+  const [ renderEventsModal, setRenderEventsModal ] = useState<boolean>(false);
 
   const { userFull, getUserFull: getUserFull, userPets } = useUser();
   const { events, GetEventByTutorId } = useEvent()
@@ -34,10 +36,15 @@ export default function HomeScreen({ navigation }: Props) {
   }, [userFull]);
 
   useEffect(() => {
-    if (events.length === 0 && userFull?.tutorId) {
+    if (userFull?.tutorId) {
       GetEventByTutorId(userFull?.tutorId!);
     }
-  }, [userFull, events]);
+  }, []);
+
+  useEffect(() => {
+    setRenderEventsModal(true);
+    setIsModalOpen(true);
+  }, [dayEvents]);
 
   function navigateToProfile() {
       navigation.replace('Profile');
@@ -45,6 +52,23 @@ export default function HomeScreen({ navigation }: Props) {
 
   function navigateToPet(id: string) {
       navigation.replace('Pet', { id });
+  }
+
+  async function getEventsByDay(day: Date): Promise<Event[]> {
+    return events.filter(evt => {
+      if (!evt.eventDate) return false;
+      const evtDate = new Date(evt.eventDate);
+      return (
+        evtDate.getFullYear() === day.getFullYear() &&
+        evtDate.getMonth()    === day.getMonth() &&
+        evtDate.getDate()     === day.getDate()
+      );
+    });
+  }
+
+  async function handleOpenModalForDate(date: Date): Promise<void> {
+    const evts = await getEventsByDay(date);
+    setDayEvents(evts);
   }
   
   return (
@@ -54,9 +78,18 @@ export default function HomeScreen({ navigation }: Props) {
           <Text style={styles.buttonText}>Profile</Text>
         </Pressable>
       </Header>
-      <Modal title="Modal Title" modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
-        <Text>This is the modal content!</Text>
-      </Modal>
+      {  dayEvents && renderEventsModal && (
+        <Modal title="Eventos do Dia" modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
+          <ScrollView>
+            { dayEvents.map((evt) => (  
+              <View key={evt.id} style={styles.eventContainer}>
+                <Text style={styles.eventTitle}>{evt.tooltip}</Text>  
+                <Text style={styles.eventTitle}>{evt.name}</Text>
+              </View>
+            )) }
+          </ScrollView>
+        </Modal>
+      ) }
       <View style={styles.content}>
         <PetActions  entityType='tutor' />
         <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>Olá, {userFull?.name}</Text>
@@ -77,7 +110,7 @@ export default function HomeScreen({ navigation }: Props) {
                   <Text style={isLoading ? styles.mainTitleSkeleton : styles.mainTitle}>You have no pets!</Text>
                 )
               )}
-            {events && <MonthlyCalendar events={events} />}
+            {events && <MonthlyCalendar events={events} onDayPress={handleOpenModalForDate}/>}
             <View style={styles.footer}>
 
             </View>

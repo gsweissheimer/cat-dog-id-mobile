@@ -8,12 +8,17 @@ import { usePet } from '../../contexts/PetContext';
 import PetActions from '../../components/PetActions/PetActions';
 import MonthlyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
 import { useEvent } from '../../contexts/EventContext';
+import Modal from '../../components/Modal/Modal';
+import { Event } from '../../types';
 
 type PetRouteProp = RouteProp<RootStackParamList, 'Pet'>;
 
 export default function PetScreen({ route }: { route: PetRouteProp }) {
 
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
+  const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+  const [ dayEvents, setDayEvents ] = useState<Event[] | null>(null);
+  const [ renderEventsModal, setRenderEventsModal ] = useState<boolean>(false);
 
   const { id } = route.params;
 
@@ -34,9 +39,43 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
     GetEventByPetId(id);
   }, [pet, id]);
 
+  useEffect(() => {
+    setRenderEventsModal(true);
+    setIsModalOpen(true);
+  }, [dayEvents]);
+  
+    async function getEventsByDay(day: Date): Promise<Event[]> {
+      return events.filter(evt => {
+        if (!evt.eventDate) return false;
+        const evtDate = new Date(evt.eventDate);
+        return (
+          evtDate.getFullYear() === day.getFullYear() &&
+          evtDate.getMonth()    === day.getMonth() &&
+          evtDate.getDate()     === day.getDate()
+        );
+      });
+    }
+  
+    async function handleOpenModalForDate(date: Date): Promise<void> {
+      const evts = await getEventsByDay(date);
+      setDayEvents(evts);
+    }
+    
+
   return (
     <View style={styles.container}>
       <Header title='Pet' showBack={true} />
+      {  dayEvents && renderEventsModal && (
+        <Modal title="Eventos do Dia" modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
+          <ScrollView>
+            { dayEvents.map((evt) => (  
+              <View key={evt.id} style={styles.eventContainer}>
+                <Text style={styles.eventTitle}>{evt.name}</Text>
+              </View>
+            )) }
+          </ScrollView>
+        </Modal>
+      ) }
       <View style={styles.content}>
         { pet && (
           <>
@@ -48,7 +87,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
               source={require('../../img/gato.png')} style={{ width: 340, height: 340 }} />
                   <View style={styles.infoContainer}>
                     <Text style={ isLoading ? styles.petNameSkeleton : styles.petName}>{pet.name}</Text>
-                    {events && <MonthlyCalendar events={events} />}
+                    {events && <MonthlyCalendar events={events} onDayPress={handleOpenModalForDate} />}
                   </View>
                   <View style={styles.footer}>
         

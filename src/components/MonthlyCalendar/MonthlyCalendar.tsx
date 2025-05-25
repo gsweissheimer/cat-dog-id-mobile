@@ -10,9 +10,10 @@ import { Event } from '../../types';
 
 type MonthlyCalendarProps = {
     events: Event[];
+    onDayPress: (date: Date) => void;
 };
 
-export default function MonthlyCalendar({ events }: MonthlyCalendarProps) {
+export default function MonthlyCalendar({ events, onDayPress }: MonthlyCalendarProps) {
 
     function startOfMonth(date: Date) {
         const d = new Date(date);
@@ -94,6 +95,7 @@ export default function MonthlyCalendar({ events }: MonthlyCalendarProps) {
         month: 'long',
         year: 'numeric',
     });
+        
 
     return (
         <View style={styles.container}>
@@ -133,11 +135,11 @@ export default function MonthlyCalendar({ events }: MonthlyCalendarProps) {
                                 {date.getDate()}
                             </Text>
                             {dayEvents.map((evt) => (
-                                <View key={evt.id ?? evt.name ?? key} style={styles.eventBadge}>
+                                <Pressable key={evt.id ?? evt.name ?? key} style={styles.eventBadge} onPress={() => onDayPress(date)}>
                                     <Text style={styles.eventText} numberOfLines={1}>
                                         {evt.name}
                                     </Text>
-                                </View>
+                                </Pressable>
                             ))}
                         </View>
                     );

@@ -27,7 +27,7 @@ export default function Modal({ title, modalOpen, children, toggleModal, showBac
           <View>
             <Text style={styles.header}>{title}</Text>
           </View>
-          <View style={styles.body}>
+          <View>
             {children}
           </View>
         </View>
