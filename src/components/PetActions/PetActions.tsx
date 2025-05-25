@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { Event, EventActions, EventAction } from '../../types/';
 import { styles } from './PetActions.styles';
@@ -12,11 +12,14 @@ type PetActionsProps = {
 
 export default function PetActions({ entityType, entityId }: PetActionsProps) {
 
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+
   const { userFull } = useUser();
 
   const { CreateEvent } = useEvent();
 
   const handleEvent = async (action: EventAction) => {
+    setButtonDisabled(true);
     const event: Event = {
       name: action.label,
       value: action.value,
@@ -31,8 +34,10 @@ export default function PetActions({ entityType, entityId }: PetActionsProps) {
       } else {
         alert('API Error');
       }
+      setButtonDisabled(false);
     }).catch((error) => {
       alert(`Erro ao criar evento: ${error.message}`);
+      setButtonDisabled(false);
     });
 
   }
@@ -44,7 +49,7 @@ export default function PetActions({ entityType, entityId }: PetActionsProps) {
         showsHorizontalScrollIndicator={false}
       >
         {EventActions.map((action, index) => (
-            <Pressable key={index} style={styles.primaryButton} onPress={() => handleEvent(action)}>
+            <Pressable key={index} style={ buttonDisabled ? styles.buttonDisabled : styles.primaryButton} onPress={() => handleEvent(action)} disabled={buttonDisabled}>
                 <Text style={styles.primaryButtonText}>{action.label}</Text>
             </Pressable>
         ))}

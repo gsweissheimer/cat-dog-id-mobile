@@ -22,6 +22,16 @@ export const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
+  buttonDisabled: {
+      padding: 16,
+      borderRadius: 6,
+      backgroundColor: '#3478f6',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 8,
+      marginLeft: 8,
+      opacity: 0.5,
+  },
   primaryButtonText: {
     color: '#fff',
     fontSize: 16,

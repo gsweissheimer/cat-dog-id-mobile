@@ -84,8 +84,8 @@ export default function HomeScreen({ navigation }: Props) {
       {  dayEvents && renderEventsModal && (
         <Modal title={modalTitle} modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
           <ScrollView>
-            { dayEvents.map((evt) => (  
-              <View key={evt.id} style={styles.eventContainer}>
+            { dayEvents.map((evt, index) => (  
+              <View key={index} style={styles.eventContainer}>
                 <Text style={styles.eventTitle}>{evt.tooltip}</Text>  
                 <Text style={styles.eventTitle}>{evt.name}</Text>
               </View>
