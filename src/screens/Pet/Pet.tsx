@@ -85,8 +85,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
             <ScrollView
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}>
-            <Image
-              source={require('../../img/gato.png')} style={{ width: 340, height: 340 }} />
+            {/* <Image source={require('../../img/gato.png')} style={{ width: 340, height: 340 }} /> */}
                   <View style={styles.infoContainer}>
                     <Text style={ isLoading ? styles.petNameSkeleton : styles.petName}>{pet.name}</Text>
                     {events && <MonthlyCalendar events={events} onDayPress={handleOpenModalForDate} />}

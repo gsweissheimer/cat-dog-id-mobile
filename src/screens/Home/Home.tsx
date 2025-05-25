@@ -76,9 +76,9 @@ export default function HomeScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <Header title="Home"> 
-        <Pressable style={styles.button} onPress={navigateToProfile}>
+        {/* <Pressable style={styles.button} onPress={navigateToProfile}>
           <Text style={styles.buttonText}>Profile</Text>
-        </Pressable>
+        </Pressable> */}
       </Header>
       {  dayEvents && renderEventsModal && (
         <Modal title={modalTitle} modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
