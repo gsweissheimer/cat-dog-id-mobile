@@ -22,7 +22,7 @@ export default function Modal({ title, modalOpen, children, toggleModal, showBac
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <TouchableOpacity style={styles.closeButton} onPress={() => toggleModal()}>
-            <Text style={styles.closeButtonText}>x</Text>
+            <Text style={styles.closeButtonText}>Fechar</Text>
           </TouchableOpacity>
           <View>
             <Text style={styles.header}>{title}</Text>

@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
         zIndex: 1,
     },
     closeButtonText: {
-        fontSize: 32,
         color: '#000',
         fontWeight: 'bold',
     },

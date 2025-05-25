@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }: Props) {
   const [ renderEventsModal, setRenderEventsModal ] = useState<boolean>(false);
 
   const { userFull, getUserFull: getUserFull, userPets } = useUser();
-  const { events, GetEventByTutorId } = useEvent()
+  const { events, GetEventByTutorId, DeleteEventById } = useEvent()
 
   useEffect(() => {
     if (userFull == null) {
@@ -73,6 +73,11 @@ export default function HomeScreen({ navigation }: Props) {
     setDayEvents(evts);
     setModalTitle(date.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
   }
+
+  function handleDeleteEvent(id: string) {
+    DeleteEventById(id);
+    setIsModalOpen(false);
+  }
   
   return (
     <View style={styles.container}>
@@ -86,8 +91,13 @@ export default function HomeScreen({ navigation }: Props) {
           <ScrollView>
             { dayEvents.map((evt, index) => (  
               <View key={index} style={styles.eventContainer}>
-                <Text style={styles.eventTitle}>{evt.tooltip}</Text>  
-                <Text style={styles.eventTitle}>{evt.name}</Text>
+                <View>
+                  <Text style={styles.eventTitle}>{evt.tooltip}</Text>  
+                  <Text style={styles.eventTitle}>{evt.name}</Text>
+                </View>
+                <Pressable onPress={() => handleDeleteEvent(evt.id!)}>
+                  <Text>Deletar</Text>
+                </Pressable>
               </View>
             )) }
           </ScrollView>

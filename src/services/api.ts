@@ -3,6 +3,22 @@ import { AnswerDTO, UserFull, Pet, Event } from "../types";
 
 const API_BASE = 'https://nodejs-nlw-production.up.railway.app'
 
+export async function DeleteEventByIdService(id: string) : Promise<AnswerDTO<boolean>> {
+    const token = await AsyncStorage.getItem('userToken');
+    console.log(token);
+    const response = await fetch(`${API_BASE}/miau/event/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token ?? '',
+        }
+    });
+    console.log(response);
+    if (response.ok) {
+        return response.json();
+    }
+    return response.ok;
+}
+
 export async function CreateEventService(event: Event) : Promise<AnswerDTO<boolean>> {
     const token = await AsyncStorage.getItem('userToken');
     const response = await fetch(`${API_BASE}/miau/event/add`, {

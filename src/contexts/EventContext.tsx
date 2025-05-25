@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode, use } from 'react';
-import { CreateEventService, getEventFromPetId, getEventFromTutorId  } from '../services/api';
+import { CreateEventService, DeleteEventByIdService, getEventFromPetId, getEventFromTutorId  } from '../services/api';
 import { AnswerDTO, Event } from '../types/';
 
 type EventContextData = {
     CreateEvent(event: Event): Promise<boolean>;
     GetEventByPetId(id: string): Promise<boolean>;
+    DeleteEventById(id: string): Promise<boolean>;
     GetEventByTutorId(id: string): Promise<boolean>;
     events: Event[];
 };
@@ -42,8 +43,20 @@ export function EventProvider({ children }: { children: ReactNode }) {
         return true;
     }
 
+    async function DeleteEventById(id: string): Promise<boolean> {
+        const result: AnswerDTO<boolean> = await DeleteEventByIdService(id);
+        console.log(result);
+        if (typeof result === 'boolean') {
+            return false;
+        }
+        if (result.data) {
+            setEvents((prevEvents) => prevEvents.filter(event => event.id !== id));
+        }
+        return result.data;
+    }
+
     return (
-        <EventContext.Provider value={{ events, CreateEvent, GetEventByTutorId, GetEventByPetId }}>
+        <EventContext.Provider value={{ events, CreateEvent, GetEventByTutorId, GetEventByPetId, DeleteEventById }}>
             {children}
         </EventContext.Provider>
     );

@@ -113,8 +113,8 @@ export default function MonthlyCalendar({ events, onDayPress }: MonthlyCalendarP
 
 
             <View style={styles.dayNamesRow}>
-                {dayNames.map((dn) => (
-                    <View key={dn} style={styles.dayNameCell}>
+                {dayNames.map((dn, index) => (
+                    <View key={index} style={styles.dayNameCell}>
                         <Text style={styles.dayNameText}>{dn}</Text>
                     </View>
                 ))}
@@ -135,8 +135,8 @@ export default function MonthlyCalendar({ events, onDayPress }: MonthlyCalendarP
                                 {date.getDate()}
                             </Text>
                             <View style={styles.eventList}>
-                                {dayEvents.slice(0,4).map((evt) => (
-                                    <Pressable key={evt.id ?? evt.name ?? key} style={styles.eventBadge} onPress={() => onDayPress(date)}>
+                                {dayEvents.slice(0,4).map((evt, index) => (
+                                    <Pressable key={index} style={styles.eventBadge} onPress={() => onDayPress(date)}>
                                         <Text style={styles.eventText} numberOfLines={1}>
                                             {evt.name}
                                         </Text>
