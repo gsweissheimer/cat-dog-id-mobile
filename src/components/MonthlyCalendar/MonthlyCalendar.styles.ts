@@ -63,12 +63,19 @@ export const styles = StyleSheet.create({
   dateOutside: {
     color: '#bbb',
   },
+  eventList: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 4,
+  },
   eventBadge: {
     backgroundColor: '#3478f6',
     borderRadius: 4,
     paddingHorizontal: 4,
     paddingVertical: 2,
     marginTop: 2,
+    maxWidth: '50%',
   },
   eventText: {
     fontSize: 10,

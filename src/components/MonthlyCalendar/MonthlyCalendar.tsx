@@ -134,13 +134,15 @@ export default function MonthlyCalendar({ events, onDayPress }: MonthlyCalendarP
                             <Text style={[styles.dateText, !inMonth && styles.dateOutside]}>
                                 {date.getDate()}
                             </Text>
-                            {dayEvents.map((evt) => (
-                                <Pressable key={evt.id ?? evt.name ?? key} style={styles.eventBadge} onPress={() => onDayPress(date)}>
-                                    <Text style={styles.eventText} numberOfLines={1}>
-                                        {evt.name}
-                                    </Text>
-                                </Pressable>
-                            ))}
+                            <View style={styles.eventList}>
+                                {dayEvents.slice(0,4).map((evt) => (
+                                    <Pressable key={evt.id ?? evt.name ?? key} style={styles.eventBadge} onPress={() => onDayPress(date)}>
+                                        <Text style={styles.eventText} numberOfLines={1}>
+                                            {evt.name}
+                                        </Text>
+                                    </Pressable>
+                                ))}
+                            </View>
                         </View>
                     );
                 })}
