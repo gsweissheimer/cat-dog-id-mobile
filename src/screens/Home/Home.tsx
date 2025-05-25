@@ -10,6 +10,7 @@ import MonthlyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
 import { Event } from '../../types/';
 import { useEvent } from '../../contexts/EventContext';
 import Modal from '../../components/Modal/Modal';
+import EventsModal from '../../components/EventsModal/EventsModal';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Pet'>;
@@ -87,21 +88,13 @@ export default function HomeScreen({ navigation }: Props) {
         </Pressable> */}
       </Header>
       {  dayEvents && renderEventsModal && (
-        <Modal title={modalTitle} modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
-          <ScrollView>
-            { dayEvents.map((evt, index) => (  
-              <View key={index} style={styles.eventContainer}>
-                <View>
-                  <Text style={styles.eventTitle}>{evt.tooltip}</Text>  
-                  <Text style={styles.eventTitle}>{evt.name}</Text>
-                </View>
-                <Pressable onPress={() => handleDeleteEvent(evt.id!)}>
-                  <Text>Deletar</Text>
-                </Pressable>
-              </View>
-            )) }
-          </ScrollView>
-        </Modal>
+        <EventsModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          dayEvents={dayEvents}
+          modalTitle={modalTitle}
+          handleDeleteEvent={handleDeleteEvent}
+        />
       ) }
       <View style={styles.content}>
         <PetActions  entityType='tutor' />

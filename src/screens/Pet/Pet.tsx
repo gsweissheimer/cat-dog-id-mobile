@@ -10,6 +10,7 @@ import MonthlyCalendar from '../../components/MonthlyCalendar/MonthlyCalendar';
 import { useEvent } from '../../contexts/EventContext';
 import Modal from '../../components/Modal/Modal';
 import { Event } from '../../types';
+import EventsModal from '../../components/EventsModal/EventsModal';
 
 type PetRouteProp = RouteProp<RootStackParamList, 'Pet'>;
 
@@ -24,7 +25,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
   const { id } = route.params;
 
   const { pet, getPetById } = usePet();
-  const { events, GetEventByPetId } = useEvent();
+  const { events, GetEventByPetId, DeleteEventById } = useEvent();
 
   useEffect(() => {
     if (pet == null || pet.id !== id) {
@@ -62,22 +63,25 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
       setDayEvents(evts);
       setModalTitle(date.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
     }
+
+  function handleDeleteEvent(id: string) {
+    DeleteEventById(id);
+    setIsModalOpen(false);
+  }
     
 
   return (
     <View style={styles.container}>
       <Header title='Pet' showBack={true} />
-      {  dayEvents && renderEventsModal && (
-        <Modal title={modalTitle} modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
-          <ScrollView>
-            { dayEvents.map((evt, index) => (  
-              <View key={index} style={styles.eventContainer}>
-                <Text style={styles.eventTitle}>{evt.name}</Text>
-              </View>
-            )) }
-          </ScrollView>
-        </Modal>
-      ) }
+            {  dayEvents && renderEventsModal && (
+              <EventsModal
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                dayEvents={dayEvents}
+                modalTitle={modalTitle}
+                handleDeleteEvent={handleDeleteEvent}
+              />
+            ) }
       <View style={styles.content}>
         { pet && (
           <>
