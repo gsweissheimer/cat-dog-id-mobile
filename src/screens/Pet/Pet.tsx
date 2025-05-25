@@ -18,6 +18,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
   const [ dayEvents, setDayEvents ] = useState<Event[] | null>(null);
+  const [ modalTitle, setModalTitle ] = useState<string>('');
   const [ renderEventsModal, setRenderEventsModal ] = useState<boolean>(false);
 
   const { id } = route.params;
@@ -59,6 +60,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
     async function handleOpenModalForDate(date: Date): Promise<void> {
       const evts = await getEventsByDay(date);
       setDayEvents(evts);
+      setModalTitle(date.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
     }
     
 
@@ -66,7 +68,7 @@ export default function PetScreen({ route }: { route: PetRouteProp }) {
     <View style={styles.container}>
       <Header title='Pet' showBack={true} />
       {  dayEvents && renderEventsModal && (
-        <Modal title="Eventos do Dia" modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
+        <Modal title={modalTitle} modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
           <ScrollView>
             { dayEvents.map((evt) => (  
               <View key={evt.id} style={styles.eventContainer}>

@@ -32,11 +32,18 @@ export const styles = StyleSheet.create({
         right: 16,
         zIndex: 1,
     },
+    closeButtonText: {
+        fontSize: 32,
+        color: '#000',
+        fontWeight: 'bold',
+    },
     header: {
+        marginTop: 32,
         marginBottom: 16,
         fontWeight: 'bold',
         fontSize: 20,
         textAlign: 'center',
+        width: '100%',
     },
     body: {
         flex: 1,

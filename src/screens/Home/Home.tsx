@@ -20,6 +20,7 @@ export default function HomeScreen({ navigation }: Props) {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
   const [ dayEvents, setDayEvents ] = useState<Event[] | null>(null);
+  const [ modalTitle, setModalTitle ] = useState<string>('');
   const [ renderEventsModal, setRenderEventsModal ] = useState<boolean>(false);
 
   const { userFull, getUserFull: getUserFull, userPets } = useUser();
@@ -69,6 +70,7 @@ export default function HomeScreen({ navigation }: Props) {
   async function handleOpenModalForDate(date: Date): Promise<void> {
     const evts = await getEventsByDay(date);
     setDayEvents(evts);
+    setModalTitle(date.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
   }
   
   return (
@@ -79,7 +81,7 @@ export default function HomeScreen({ navigation }: Props) {
         </Pressable>
       </Header>
       {  dayEvents && renderEventsModal && (
-        <Modal title="Eventos do Dia" modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
+        <Modal title={modalTitle} modalOpen={isModalOpen} toggleModal={() => setIsModalOpen(!isModalOpen)}>
           <ScrollView>
             { dayEvents.map((evt) => (  
               <View key={evt.id} style={styles.eventContainer}>
