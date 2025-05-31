@@ -51,6 +51,7 @@ export const styles = StyleSheet.create({
     minHeight: 60,
     borderWidth: 0.5,
     borderColor: '#eee',
+    height: 90,
     padding: 4,
   },
   dayOutside: {
@@ -75,10 +76,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 2,
     marginTop: 2,
-    maxWidth: '50%',
+    maxWidth: '100%',
   },
   eventText: {
     fontSize: 10,
+    lineHeight: 12,
     color: '#fff',
   },
 });

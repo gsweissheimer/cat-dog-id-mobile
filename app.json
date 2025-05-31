@@ -16,20 +16,28 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
+      "versionCode": 2,
+      "versionName": "1.0.1",
       "package": "com.gsweissheimer.app"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
+      "backgroundColor": "#ffffff"
     },
+    "edgeToEdgeEnabled": true,
+    "package": "com.gsweissheimer.app",
     "extra": {
       "eas": {
         "projectId": "29438d12-4369-4500-8e75-a97e950b3ab6"
       }
+    }
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
+  },
+  "extra": {
+    "eas": {
+      "projectId": "29438d12-4369-4500-8e75-a97e950b3ab6"
     }
   }
 }

@@ -135,7 +135,7 @@ export default function MonthlyCalendar({ events, onDayPress }: MonthlyCalendarP
                                 {date.getDate()}
                             </Text>
                             <View style={styles.eventList}>
-                                {dayEvents.slice(0,4).map((evt, index) => (
+                                {dayEvents.slice(0,3).map((evt, index) => (
                                     <Pressable key={index} style={styles.eventBadge} onPress={() => onDayPress(date)}>
                                         <Text style={styles.eventText} numberOfLines={1}>
                                             {evt.name}
